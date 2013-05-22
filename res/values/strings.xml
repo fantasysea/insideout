@@ -4,5 +4,10 @@
     <string name="app_name">InsideOut</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+	<!-- 下拉刷新 -->
+    <string name="release_to_reflesh">松开刷新</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="reflesh_refreshing">正在刷新...</string>
+    <string name="last_reflesh">最近更新:</string>
+     <string name="tab_more">更多</string>
 </resources>
