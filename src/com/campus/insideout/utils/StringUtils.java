@@ -6,6 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Pattern;
+
 
 /** 
  * 字符串操作工具包
@@ -33,55 +39,6 @@ public class StringUtils
 	}
 	
 	/**
-	 * 以友好的方式显示时间
-	 * @param sdate
-	 * @return
-	 */
-	public static String friendly_time(MoXianApp app,String sdate) {
-		Date time = new Date(Long.parseLong(sdate)*1000);
-		String ftime = "";
-		Calendar cal = Calendar.getInstance();
-		
-		//判断是否是同�?��
-		String curDate = dateFormater2.format(cal.getTime());
-		String paramDate = dateFormater2.format(time);
-		if(curDate.equals(paramDate)){
-			int hour = (int)((cal.getTimeInMillis() - time.getTime())/3600000);
-			if(hour == 0)
-				ftime = Math.max((cal.getTimeInMillis() - time.getTime()) / 60000,1)+app.getString(R.string.min_before);
-			else 
-				ftime = hour+app.getString(R.string.hour_before);;
-			return ftime;
-		}
-		
-		long lt = time.getTime()/86400000;
-		long ct = cal.getTimeInMillis()/86400000;
-		int days = (int)(ct - lt);		
-		if(days == 0){
-			int hour = (int)((cal.getTimeInMillis() - time.getTime())/3600000);
-			if(hour == 0)
-				ftime = Math.max((cal.getTimeInMillis() - time.getTime()) / 60000,1)+app.getString(R.string.min_before);
-			else 
-				ftime = hour+app.getString(R.string.hour_before);
-		}
-//		else if(days == 1){
-//			ftime = app.getString(R.string.yesterday);
-//		}
-//		else if(days == 2){
-//			ftime = app.getString(R.string.the_day_before_yesterday);
-//		}
-		else if(days >=1 && days <= 7){ 
-			ftime = days+app.getString(R.string.day_before);			
-		}
-		else if(days > 7){			
-//			ftime = days/7+app.getString(R.string.week_before);
-			ftime = paramDate;
-		}
-		
-		return ftime;
-	}
-	
-	/**
 	 * 判断给定字符串时间是否为今日
 	 * @param sdate
 	 * @return boolean
@@ -101,7 +58,7 @@ public class StringUtils
 	}
 	
 	/**
-	 * 判断给定字符串是否空白串�?
+	 * 判断给定字符串是否空白串。
 	 * 空白串是指由空格、制表符、回车符、换行符组成的字符串
 	 * 若输入字符串为null或空字符串，返回true
 	 * @param input
@@ -146,7 +103,7 @@ public class StringUtils
 		return defValue;
 	}
 	/**
-	 * 对象转整�?
+	 * 对象转整数
 	 * @param obj
 	 * @return 转换异常返回 0
 	 */
@@ -155,7 +112,7 @@ public class StringUtils
 		return toInt(obj.toString(),0);
 	}
 	/**
-	 * 对象转整�?
+	 * 对象转整数
 	 * @param obj
 	 * @return 转换异常返回 0
 	 */
@@ -166,7 +123,7 @@ public class StringUtils
 		return 0;
 	}
 	/**
-	 * 字符串转布尔�?
+	 * 字符串转布尔值
 	 * @param b
 	 * @return 转换异常返回 false
 	 */

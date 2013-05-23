@@ -50,24 +50,24 @@ public class BitmapUtil {
 		return bmpDest;
 	}
 	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-		// 创建�?��指定宽度和高度的空位图对�?
+		// 创建一个指定宽度和高度的空位图对象
 		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
 				bitmap.getHeight(), Config.ARGB_4444);
 		// 用该位图创建画布
 		Canvas canvas = new Canvas(output);
 		// 画笔对象
 		final Paint paint = new Paint();
-		// 画笔的颜�?
+		// 画笔的颜色
 		final int color = 0xff424242;
 		// 矩形区域对象
 		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 		// 未知
 		final RectF rectF = new RectF(rect);
-		// 拐角的半�?
+		// 拐角的半径
 		final float roundPx = 10;
 		// 消除锯齿
 		paint.setAntiAlias(true);
-		// 画布背景�?
+		// 画布背景色
 		canvas.drawARGB(0, 0, 0, 0);
 		// 设置画笔颜色
 		paint.setColor(color);
@@ -75,9 +75,9 @@ public class BitmapUtil {
 		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
 		// 未知
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		// 把该图片绘制在该圆角矩形区域�?
+		// 把该图片绘制在该圆角矩形区域中
 		canvas.drawBitmap(bitmap, rect, rect, paint);
-		// �?��在画布上呈现的就是该圆角矩形图片，然后我们返回该Bitmap对象
+		// 最终在画布上呈现的就是该圆角矩形图片，然后我们返回该Bitmap对象
 		return output;
 	}
 

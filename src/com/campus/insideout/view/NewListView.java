@@ -3,9 +3,6 @@ package com.campus.insideout.view;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.campus.insideout.R;
-
-
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -16,18 +13,24 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
 
+import com.campus.insideout.R;
+import com.campus.insideout.utils.ILog;
+/**
+ * 下拉刷新
+ * @author sea
+ *
+ */
 public class NewListView extends ListView implements OnScrollListener {
 	private int mScrollState;
 	private OnRefreshListener refreshListener;
-
 	private static final String TAG = "listview";
 	public final static int RELEASE_To_REFRESH = 0;
 	public final static int PULL_To_REFRESH = 1;
@@ -59,7 +62,7 @@ public class NewListView extends ListView implements OnScrollListener {
 	private boolean isBack;
 	protected boolean isRefreshable;
 	private boolean isRefreshFoot;
-	private boolean nomore = false;
+	private boolean hasNext = true;
 	private Context context;
 	String formatedate = "";
 
@@ -79,7 +82,7 @@ public class NewListView extends ListView implements OnScrollListener {
 		mScrollState = scrollState;
 		if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && isRefreshFoot) {
 			if (state != REFRESHING && state != LOADING) {
-				if (!nomore) {
+				if (hasNext) {
 					state = LOADING;
 					moreView.setVisibility(View.VISIBLE);
 					next.setText(context.getResources().getString(R.string.tab_more));
@@ -161,6 +164,7 @@ public class NewListView extends ListView implements OnScrollListener {
 				if (firstItemIndex == 0 && !isRecored) {
 					isRecored = true;
 					startY = (int) event.getY();
+					ILog.i("在down时候记录当前位置‘");
 				}
 				break;
 
@@ -168,17 +172,20 @@ public class NewListView extends ListView implements OnScrollListener {
 
 				if (state != REFRESHING && state != LOADING) {
 					if (state == DONE) {
+						// 什么都不做
 					}
 					if (state == PULL_To_REFRESH) {
 						state = DONE;
 						changeHeaderViewByState();
 
+						ILog.i("由下拉刷新状态，到done状态");
 					}
 					if (state == RELEASE_To_REFRESH) {
 						state = REFRESHING;
 						changeHeaderViewByState();
 						onRefresh();
 
+						ILog.i("由松开刷新状态，到done状态");
 					}
 				}
 
@@ -190,52 +197,62 @@ public class NewListView extends ListView implements OnScrollListener {
 			case MotionEvent.ACTION_MOVE:
 				int tempY = (int) event.getY();
 				if (!isRecored && firstItemIndex == 0) {
+					ILog.i("在move时候记录下位置");
 					isRecored = true;
 					startY = tempY;
 				}
 
 				if (state != REFRESHING && isRecored && state != LOADING) {
 
-					// 保证在设置padding的过程中，当前的位置�?��是在head，否则如果当列表超出屏幕的话，当在上推的时�?，列表会同时进行滚动
+					// 保证在设置padding的过程中，当前的位置一直是在head，否则如果当列表超出屏幕的话，当在上推的时候，列表会同时进行滚动
 
 					// 可以松手去刷新了
 					if (state == RELEASE_To_REFRESH) {
 
 						setSelection(0);
 
+						// 往上推了，推到了屏幕足够掩盖head的程度，但是还没有推到全部掩盖的地步
 						if (((tempY - startY) / RATIO < headContentHeight) && (tempY - startY) > 0) {
 							state = PULL_To_REFRESH;
 							changeHeaderViewByState();
 
+							ILog.i("由松开刷新状态转变到下拉刷新状态");
 						}
+						// 一下子推到顶了
 						else if (tempY - startY <= 0) {
 							state = DONE;
 							changeHeaderViewByState();
 
+							ILog.i("由松开刷新状态转变到done状态");
 						}
+						// 往下拉了，或者还没有上推到屏幕顶部掩盖head的地步
 						else {
-							// 不用进行特别的操作，只用更新paddingTop的�?就行�?
+							// 不用进行特别的操作，只用更新paddingTop的值就行了
 						}
 					}
+					// 还没有到达显示松开刷新的时候,DONE或者是PULL_To_REFRESH状态
 					if (state == PULL_To_REFRESH) {
 
 						setSelection(0);
 
-						// 下拉到可以进入RELEASE_TO_REFRESH的状�?
+						// 下拉到可以进入RELEASE_TO_REFRESH的状态
 						if ((tempY - startY) / RATIO >= headContentHeight) {
 							state = RELEASE_To_REFRESH;
 							isBack = true;
 							changeHeaderViewByState();
 
+							ILog.i("由done或者下拉刷新状态转变到松开刷新");
 						}
+						// 上推到顶了
 						else if (tempY - startY <= 0) {
 							state = DONE;
 							changeHeaderViewByState();
 
+							ILog.i("由DOne或者下拉刷新状态转变到done状态");
 						}
 					}
 
-					// done状�?�?
+					// done状态下
 					if (state == DONE) {
 						if (tempY - startY > 0) {
 							state = PULL_To_REFRESH;
@@ -267,7 +284,9 @@ public class NewListView extends ListView implements OnScrollListener {
 		lastUpdatedTextView.setText(context.getString(R.string.last_reflesh) + formatedate);
 	}
 
+	// 当状态改变时候，调用该方法，以更新界面
 	protected void changeHeaderViewByState() {
+		ILog.i("-----super-changeHeaderViewByState--");
 		switch (state) {
 		case RELEASE_To_REFRESH:
 			arrowImageView.setVisibility(View.VISIBLE);
@@ -280,6 +299,7 @@ public class NewListView extends ListView implements OnScrollListener {
 
 			tipsTextview.setText(context.getString(R.string.release_to_reflesh));
 
+			// Log.v(TAG, "当前状态，松开刷新");
 			break;
 		case PULL_To_REFRESH:
 			progressBar.setVisibility(View.GONE);
@@ -287,6 +307,7 @@ public class NewListView extends ListView implements OnScrollListener {
 			lastUpdatedTextView.setVisibility(View.VISIBLE);
 			arrowImageView.clearAnimation();
 			arrowImageView.setVisibility(View.VISIBLE);
+			// 是由RELEASE_To_REFRESH状态转变来的
 			if (isBack) {
 				isBack = false;
 				arrowImageView.clearAnimation();
@@ -296,6 +317,7 @@ public class NewListView extends ListView implements OnScrollListener {
 			} else {
 				tipsTextview.setText(context.getString(R.string.pull_to_refresh));
 			}
+			// Log.v(TAG, "当前状态，下拉刷新");
 			break;
 
 		case REFRESHING:
@@ -308,6 +330,7 @@ public class NewListView extends ListView implements OnScrollListener {
 			tipsTextview.setText(context.getString(R.string.reflesh_refreshing));
 			lastUpdatedTextView.setVisibility(View.VISIBLE);
 
+			// Log.v(TAG, "当前状态,正在刷新...");
 			break;
 		case DONE:
 			headView.setPadding(0, -1 * headContentHeight, 0, 0);
@@ -318,6 +341,7 @@ public class NewListView extends ListView implements OnScrollListener {
 			tipsTextview.setText(context.getString(R.string.pull_to_refresh));
 			lastUpdatedTextView.setVisibility(View.VISIBLE);
 
+			// Log.v(TAG, "当前状态，done");
 			break;
 		}
 	}
@@ -356,7 +380,7 @@ public class NewListView extends ListView implements OnScrollListener {
 		}
 	}
 
-	// 此方法直接照搬自网络上的�?��下拉刷新的demo，此处是“估计�?headView的width以及height
+	// 此方法直接照搬自网络上的一个下拉刷新的demo，此处是“估计”headView的width以及height
 	private void measureView(View child) {
 		ViewGroup.LayoutParams p = child.getLayoutParams();
 		if (p == null) {
@@ -392,12 +416,12 @@ public class NewListView extends ListView implements OnScrollListener {
 		moreView.setVisibility(View.GONE);
 	}
 
-	public boolean isNomore() {
-		return nomore;
+	public boolean isHasNext() {
+		return hasNext;
 	}
 
-	public void setNomore(boolean nomore) {
-		this.nomore = nomore;
+	public void setHasNext(boolean hasNext) {
+		this.hasNext = hasNext;
 	}
 
 }
