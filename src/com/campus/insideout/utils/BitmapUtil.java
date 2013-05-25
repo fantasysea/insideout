@@ -19,7 +19,12 @@ import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
-
+/**
+ * 常用的bitmap处理
+ * 如:圆角
+ * @author Administrator
+ *
+ */
 public class BitmapUtil {
 	public static Bitmap getRoundedCornerBitmap(Bitmap bmpSrc, float rx,
 			float ry) {

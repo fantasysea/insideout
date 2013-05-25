@@ -7,7 +7,11 @@ import android.text.TextUtils;
 import android.webkit.CookieSyncManager;
 
 import com.campus.insideout.utils.CommonData;
-
+/**
+ * 基本信息都在这里面
+ * @author sea
+ *
+ */
 public class IApp extends BaseApplication{
 	//用户中心字段
 	public String mNickName; // 昵称

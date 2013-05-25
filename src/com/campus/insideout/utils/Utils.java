@@ -27,7 +27,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+/**
+ * 常用的一些操作
+ * @author Administrator
+ *
+ */
 public class Utils {
 
 

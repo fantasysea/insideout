@@ -2,7 +2,11 @@ package com.campus.insideout.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 注册验证方法类
+ * @author Administrator
+ *
+ */
 public class CheckUtil {
 
 	public static Boolean checkemil(String emil) {

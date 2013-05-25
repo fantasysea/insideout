@@ -6,7 +6,11 @@ import java.io.FileWriter;
 
 import android.os.Environment;
 import android.util.Log;
-
+/**
+ * 打印log都请使用这个类
+ * @author Administrator
+ *
+ */
 public class ILog {
 
 	private final static String tag = "moxian";

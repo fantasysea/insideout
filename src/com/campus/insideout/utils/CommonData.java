@@ -7,6 +7,8 @@ import java.util.HashMap;
 import android.os.Environment;
 
 /**
+ * 配置文件
+ * 可用来配置常用的URL 地址
  * @author sea
  *
  */

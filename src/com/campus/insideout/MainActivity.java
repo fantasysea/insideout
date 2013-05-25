@@ -3,7 +3,6 @@ package com.campus.insideout;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioGroup;
@@ -15,16 +14,11 @@ import com.campus.insideout.fragments.NearbyFragment;
 import com.campus.insideout.fragments.SettingFragment;
 
 /**
- * This demonstrates how you can implement switching between the tabs of a
- * TabHost through fragments, using FragmentTabHost.
+ * 主类
+ * 使用了FragmentTabHost +  fragment 组合  
  */
 public class MainActivity extends FragmentActivity {
 	private FragmentTabHost mTabHost;
-	private int zero = 0;// 动画图片偏移量
-	private int currIndex = 0;// 当前页卡编号
-	private int one;// 单个水平动画位移
-	private int two;
-	private int three;
 	private RadioGroup radioGroup;
 
 	@Override
@@ -39,12 +33,6 @@ public class MainActivity extends FragmentActivity {
 		mTabHost.addTab(mTabHost.newTabSpec("nearby").setIndicator("nearby"), NearbyFragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("contact").setIndicator("contact"), ContactFragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("setting").setIndicator("setting"), SettingFragment.class, null);
-		Display currDisplay = getWindowManager().getDefaultDisplay();//获取屏幕当前分辨率
-		int displayWidth = currDisplay.getWidth();
-        int displayHeight = currDisplay.getHeight();
-        one = displayWidth/4; //设置水平动画平移大小
-        two = one*2;
-        three = one*3;
 		radioGroup = (RadioGroup) findViewById(R.id.menu_group);
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 

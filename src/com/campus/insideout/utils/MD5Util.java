@@ -2,7 +2,11 @@ package com.campus.insideout.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * MD5方法类
+ * @author Administrator
+ *
+ */
 public class MD5Util {
 	public static String MD5(String user,String token,String psw){
 		
