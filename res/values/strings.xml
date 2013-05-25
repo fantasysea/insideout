@@ -10,4 +10,9 @@
     <string name="reflesh_refreshing">正在刷新...</string>
     <string name="last_reflesh">最近更新:</string>
      <string name="tab_more">更多</string>
+     <!-- 主菜单 -->
+     <string name="tab_dialog">对话</string>
+     <string name="tab_nearby">周边</string>
+     <string name="tab_count">联系人</string>
+     <string name="tab_setting">设置</string>
 </resources>

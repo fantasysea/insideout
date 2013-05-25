@@ -7,9 +7,9 @@
 
     <android.support.v4.app.FragmentTabHost
         android:id="@android:id/tabhost"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dip" >
+        android:layout_height="0dip"
+        android:layout_weight="1" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,13 +19,13 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="0dp"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp" />
 
             <FrameLayout
                 android:id="@+id/realtabcontent"
@@ -34,34 +34,60 @@
         </RelativeLayout>
     </android.support.v4.app.FragmentTabHost>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/main_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="35dp"
+        android:background="@drawable/bottom_bar"
+        android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/id1"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content" />
-        
-        <RadioButton
-            android:id="@+id/id1"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content" />
-        
-        <RadioButton
-            android:id="@+id/id1"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content" />
-        
-        <RadioButton
-            android:id="@+id/id1"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/img_tab_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:scaleType="matrix"
+            android:visibility="gone"
+            android:src="@drawable/tab_bg" />
+
+        <RadioGroup
+            android:id="@+id/menu_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+				<View android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+                <RadioButton
+                    android:id="@+id/tab_dialog"
+                    style="@style/MMTabButton"
+                    android:checked="true"
+                    android:background="@drawable/tab_dialog" />
+				<View android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+
+                <RadioButton
+                    android:id="@+id/tab_nearby"
+                    style="@style/MMTabButton"
+                    android:background="@drawable/tab_nearby" />
+
+				<View android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+                <RadioButton
+                    android:id="@+id/tab_contact"
+                    style="@style/MMTabButton"
+                    android:background="@drawable/tab_contact" />
+
+				<View android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+                <RadioButton
+                    android:id="@+id/tab_setting"
+                    style="@style/MMTabButton"
+                    android:background="@drawable/tab_setting" />
+				<View android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+        </RadioGroup>
+    </RelativeLayout>
 
 </LinearLayout>
