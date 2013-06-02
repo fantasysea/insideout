@@ -23,6 +23,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
@@ -30,8 +32,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 		mTabHost.getTabWidget().setVisibility(View.GONE);
 		mTabHost.addTab(mTabHost.newTabSpec("dialog").setIndicator("dialog"), DialogFragment.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("nearby").setIndicator("nearby"), NearbyFragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("contact").setIndicator("contact"), ContactFragment.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("nearby").setIndicator("nearby"), NearbyFragment.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("setting").setIndicator("setting"), SettingFragment.class, null);
 		radioGroup = (RadioGroup) findViewById(R.id.menu_group);
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -62,4 +64,6 @@ public class MainActivity extends SherlockFragmentActivity {
 			}
 		});
 	}
+	
+	
 }

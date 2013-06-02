@@ -15,4 +15,7 @@
      <string name="tab_nearby">周边</string>
      <string name="tab_count">联系人</string>
      <string name="tab_setting">设置</string>
+     <!-- 周边 -->
+     <string name="search_hint">搜索...</string>
+     
 </resources>
