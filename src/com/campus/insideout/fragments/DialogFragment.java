@@ -2,12 +2,12 @@ package com.campus.insideout.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.campus.insideout.R;
 
 /**
@@ -15,7 +15,7 @@ import com.campus.insideout.R;
  * TabHost through fragments, using FragmentTabHost.
  */
 
-public class DialogFragment extends Fragment {
+public class DialogFragment extends SherlockFragment {
     int mNum;
 
     /**

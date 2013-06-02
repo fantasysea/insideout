@@ -1,13 +1,13 @@
 package com.campus.insideout;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.campus.insideout.fragments.ContactFragment;
 import com.campus.insideout.fragments.DialogFragment;
 import com.campus.insideout.fragments.NearbyFragment;
@@ -17,7 +17,7 @@ import com.campus.insideout.fragments.SettingFragment;
  * 主类
  * 使用了FragmentTabHost +  fragment 组合  
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends SherlockFragmentActivity {
 	private FragmentTabHost mTabHost;
 	private RadioGroup radioGroup;
 
